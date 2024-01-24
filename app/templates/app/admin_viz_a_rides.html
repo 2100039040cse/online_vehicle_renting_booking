@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'app/admin_viz_a_rides.css' %}">
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Viz-A</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+        {% endif %}
+        <a href="{% url 'admin_rides' %}">Back</a>
+        <a href="{% url 'admin_viz_a_rides_graph' %}">Graphs</a>
+
+        
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <h2>Booked Vehicles for Viz A</h2>
+  <table>
+    <tr>
+      <th>S No</th>
+      <th>Vehicle ID</th>
+      <th>Number</th>
+      <th>Vehicle Name</th>
+      <th>Driver Name</th>
+      <th>Driver Contact</th>
+      <th>User</th>
+      <th>Driver Cost</th>
+      <th>Rent Cost</th>
+      <th>Total Cost</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Address</th>
+      <th>Feedback</th>
+      <th>Cancelled</th>
+    </tr>
+    {% for booked_vehicle in booked_vehicles_viz_a %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ booked_vehicle.vehicle_id }}</td>
+        <td>{{ booked_vehicle.vehicle_number }}</td>
+        <td>{{ booked_vehicle.vehicle_name }}</td>
+        <td>{{ booked_vehicle.driver_name }}</td>  
+        <td>{{ booked_vehicle.driver_contact }}</td> 
+        <td>{{ booked_vehicle.user.username }}</td>
+        <td>{{ booked_vehicle.driver_cost }}</td>
+        <td>{{ booked_vehicle.rent_cost }}</td>
+        <td>{{ booked_vehicle.total_cost }}</td>
+        <td>{{ booked_vehicle.start_datetime }}</td>
+        <td>{{ booked_vehicle.end_datetime }}</td>
+        <td>{{ booked_vehicle.address }}</td>
+        <td>
+          {% if booked_vehicle.feedback_exists %}
+            <a href="{% url 'admin_feed_back' payment_id=booked_vehicle.id %}">View</a>
+          {% else %}
+            Still not given
+          {% endif %}
+        </td>
+        
+        <td>
+          {% if booked_vehicle.is_canceled %}
+            <a href="{% url 'admin_cancel' payment_id=booked_vehicle.id %}">View</a>
+          {% else %}
+            Not Cancelled
+          {% endif %}
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="7">No vehicles booked for Viz A</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+    
+</body>
+</html>

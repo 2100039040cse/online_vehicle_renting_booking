@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  <link rel="stylesheet" href="{% static 'app/dashboard.css' %}">
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+</head>
+<body>
+  <nav>
+    <div class="navbar"> 
+      <div class="navbar-left">
+        <h1>Welcome!</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <a href="{% url 'account_view' %}">Account</a>
+          <a href="{% url 'user_bookings' %}">My Bookings</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <div class="container">
+  <div class="content">
+    <div class="quotation">
+      <blockquote>
+        <p>We Believe in transparency</p>
+      </blockquote>
+    </div>
+    <div class="map-buttons">
+      <button id="vijayawada-map-btn">See Distance to Vijayawada</button>
+      <button id="khammam-map-btn">See Distance to Khammam</button>
+    </div>
+    <div class="image-gallery">
+      <a href="{% url 'viz_station_list' %}" class="gallery-item">
+        <img src="{% static 'app/images/image1.jpeg' %}" alt="Image 1">
+        <span class="image-text">Vijayawada</span>
+      </a>
+      <a href="{% url 'khm_station_list' %}" class="gallery-item">
+        <img src="{% static 'app/images/image2.jpg' %}" alt="Image 2">
+        <span class="image-text">Khammam</span>
+      </a>
+    </div>
+  </div>
+</div>
+  <script>
+    window.onload = function() {
+  // Get all image elements in the gallery
+  const images = document.querySelectorAll('.image-gallery .gallery-item img');
+  
+  // Adjust the width of the text box based on each image's size
+  images.forEach(image => {
+    const imageText = image.nextElementSibling; // Select the following span containing the text
+    
+    // Set the width of the text box to match the image width
+    imageText.style.width = `${image.clientWidth}px`;
+  });
+};
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // Function to open Google Maps with directions
+      function openMapWithDirections(destinationLat, destinationLng) {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+            const originLat = position.coords.latitude;
+            const originLng = position.coords.longitude;
+            const url = `https://www.google.com/maps/dir/?api=1&origin=${originLat},${originLng}&destination=${destinationLat},${destinationLng}&travelmode=driving`;
+            window.open(url, '_blank');
+          }, function (error) {
+            console.error('Error getting user location:', error);
+            // If there's an error, open the map without the user's current location
+            const url = `https://www.google.com/maps?q=${destinationLat},${destinationLng}`;
+            window.open(url, '_blank');
+          });
+        } else {
+          console.error('Geolocation is not supported by this browser');
+          // If geolocation is not supported, open the map without the user's current location
+          const url = `https://www.google.com/maps?q=${destinationLat},${destinationLng}`;
+          window.open(url, '_blank');
+        }
+      }
+  
+      // Button click event for Vijayawada
+      document.getElementById('vijayawada-map-btn').addEventListener('click', function () {
+        openMapWithDirections(16.5062, 80.6480); // Replace with the actual coordinates for Vijayawada
+      });
+  
+      // Button click event for Khammam
+      document.getElementById('khammam-map-btn').addEventListener('click', function () {
+        openMapWithDirections(17.2476, 80.1514); // Replace with the actual coordinates for Khammam
+      });
+    });
+  </script>
+</body>
+</html>

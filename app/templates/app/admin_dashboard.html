@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'app/admin_dashboard.css' %}">
+</head>
+<body>
+  <nav>
+
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Welcome to Admin Dashboard!</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <a href="{% url 'admin_account' %}">Account</a>
+        {% endif %}
+        <a href="{% url 'admin_add_vehicle' %}">Add Vehicle</a>
+        <a href="{% url 'admin_rides' %}">Rides</a>
+        <a href="{% url 'admin_notification' %}">Notifications</a>
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+</body>
+</html>

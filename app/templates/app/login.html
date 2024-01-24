@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="{% static 'app/login.css' %}">
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1></h1>
+      </div>
+      <div class="navbar-right">
+        <a href="{% url 'signup' %}">Signup</a>
+        <a href="{% url 'become_partner' %}">Become Partner</a>
+        <a href="{% url 'index' %}">Home</a>
+      </div>
+    </div> 
+  </nav> 
+  <div class="background-image"></div>
+
+  <div class="login-container">
+    <div class="login-form">
+      <h1 class="login-heading">Login</h1>
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <form method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div class="login-btn-container">
+            <button type="submit">Login</button>
+            <a href="{% url 'signup' %}">Don't have an account? Create one</a>
+          </div>
+      </form>
+    </div>
+  </div>
+  
+</body>
+</html>
+ 
+
+<!-- <video autoplay loop muted class="background-video">
+    <source src="{% static 'app/videos/one.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video> -->

@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'app/other_viz_b_list.css' %}">
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Other</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+        {% endif %}
+        <a href="{% url 'viz_b_vehicle_list' %}">Back</a>
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  
+</body>
+</html>

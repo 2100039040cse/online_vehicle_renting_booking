@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  <link rel="stylesheet" href="{% static 'app/auto_viz_b_payment.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'app/auto_viz_a_payment_mobile.css' %}"> -->
+</head>
+<body> 
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Payment</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <a href="{% url 'dashboard' %}">Dashboard</a>
+          <a href="{% url 'auto_viz_b_list' %}">Change Auto</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <div class="main-content">
+    <div class="details-form-wrapper">
+  <div class="auto-details">
+    <h2>Auto Details</h2>
+    <p><strong>Vehicle ID:</strong> {{ auto.vehicle_id }}</p>
+    <p><strong>Vehicle Number:</strong> {{ auto.vehicle_number }}</p>
+    <!-- <p><strong>Vehicle Name:</strong> {{ auto.vehicle_name }}</p>  -->
+    <p><strong>Rent Cost:</strong> {{ auto.rent_cost }}</p>
+    <p><strong>Driver Name:</strong> {{ auto.driver_name }}</p>
+    <p><strong>Driver Contact:</strong> {{ auto.driver_contact }}</p>
+    <p><strong>Driver Cost:</strong> {{ auto.driver_cost }}</p>
+    <p><strong>Location:</strong> {{ auto.location }}</p>
+    <p><strong>Station:</strong> {{ auto.station }}</p>
+    <!-- <p><strong>Status:</strong> {{ auto.status }}</p> -->
+    <!-- <p><strong>Terms & Conditions:</strong> {{ auto.terms_conditions }}</p> -->
+    <button onclick="openTermsAndConditions()">Terms and Conditions</button>
+    <p></p>
+    <p></p> 
+    <h2>Booked Dates</h2>
+    <ul>
+        {% for start_date, end_date in booked_dates %}
+            <li>Start Date: {{ start_date }} - End Date: {{ end_date }}</li>
+        {% empty %}
+            <li>No bookings available for this vehicle</li>
+        {% endfor %}
+    </ul>
+  </div>
+ 
+  <form method="post" class="payment-form" onsubmit="return validateDateTimeSelection()">
+    {% csrf_token %}
+    <div class="messages">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="{% if message.tags %}alert alert-{{ message.tags }}{% endif %}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+      {% if error_message %}
+        <div class="alert alert-danger">
+          {{ error_message }}
+        </div>
+      {% endif %}
+    </div>
+    <input type="hidden" name="auto_id" value="{{ auto.id }}">
+
+    <label for="start_datetime">Start Date & Time:</label>
+    <input type="datetime-local" id="start_datetime" name="start_datetime" required><br>
+
+    <label for="end_datetime">End Date & Time:</label>
+    <input type="datetime-local" id="end_datetime" name="end_datetime" required><br>
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required><br>
+
+    <label for="total_cost">Total Cost:</label>
+    <input type="text" id="total_cost" name="total_cost" required readonly><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <button type="button" onclick="calculateTotalCost()">Calculate Total Cost</button>
+    
+    <input type="submit" value="Pay Now">
+  </form>
+</div>
+</div>
+  <script>
+     function validateDateTimeSelection() {
+        var currentDateTime = new Date();
+        var startDateTime = new Date(document.getElementById('start_datetime').value);
+        var endDateTime = new Date(document.getElementById('end_datetime').value);
+        
+        if (startDateTime < currentDateTime) {
+            alert("Please select a start time in the future.");
+            return false;
+        }
+
+        // Ensure end time is not earlier than start time
+        if (endDateTime <= startDateTime) {
+            alert("Please select an end time later than the start time.");
+            return false;
+        }
+        // Define the minimum booking time (2 hours)
+        var minimumBookingTime = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+
+        // Ensure the booking duration is at least the minimum
+        if (endDateTime - startDateTime < minimumBookingTime) {
+            alert("Minimum booking time is 2 hours. Please select a longer duration.");
+            return false;
+        }
+        
+
+        // Define the allowed time range
+        var allowedStartTime = new Date();
+        allowedStartTime.setHours(7, 30, 0, 0);
+        
+        var allowedEndTime = new Date();
+        allowedEndTime.setHours(18, 0, 0, 0);
+        
+        // if (startDateTime < allowedStartTime || endDateTime > allowedEndTime) {
+        //     alert("Please select the time between 7:30 am and 6:00 pm.");
+        //     return false;
+        // }
+        if (startDateTime < allowedStartTime) {
+            alert("Please select a start time after 7:30 am.");
+            return false;
+        }
+        
+        // Check if the selected end time is after the allowed end time
+        if (endDateTime < allowedEndTime) {
+            alert("Please select an end time before 6:00 pm.");
+            return false;
+        }
+        
+        // Check if the selected end time is later than the start time
+        if (endDateTime <= startDateTime) {
+            alert("End time must be later than the start time.");
+            return false;
+        }
+        
+        return true;
+    }
+    function calculateTotalCost() {
+      var startDateTime = new Date(document.getElementById('start_datetime').value);
+      var endDateTime = new Date(document.getElementById('end_datetime').value);
+      var rentCost = parseFloat('{{ auto.rent_cost }}');
+      var driverCost = parseFloat('{{ auto.driver_cost }}');
+  
+      var timeDifference = endDateTime - startDateTime;
+      var hoursDifference = timeDifference / (1000 * 3600);
+  
+      var totalCost = (rentCost + driverCost) * hoursDifference;
+  
+      document.getElementById('total_cost').value = totalCost.toFixed(2);
+      return validateDateTimeSelection();
+    }
+    function openTermsAndConditions() {
+      var pdfPath = '{% static "app/videos/terms_and_conditions.pdf" %}';
+      window.open(pdfPath, '_blank');
+    }
+  </script>
+</body>
+</html>

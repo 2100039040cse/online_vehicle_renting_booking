@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  <link rel="stylesheet" href="{% static 'app/viz_station_list.css' %}">
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Vijayawada</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <a href="{% url 'dashboard' %}">Change Location</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  
+  <div class="container">
+  <div class="content">
+    <div class="quotation"> 
+      <blockquote>
+        <p>We Believe in transparency</p>
+      </blockquote>
+    </div>
+
+    <div class="map-buttons">
+      <button id="vijayawada-map-btn">See Distance to A-Station</button>
+      <button id="khammam-map-btn">See Distance to B-Station</button>
+    </div>
+
+    <div class="image-gallery">
+      <a href="{% url 'viz_a_vehicle_list' %}" class="gallery-item">
+        <img src="{% static 'app/images/image1.jpeg' %}" alt="Image 1">
+        <span class="image-text">A-Station (Near Raghavaiah Park)</span>
+      </a>
+      <a href="{% url 'viz_b_vehicle_list' %}" class="gallery-item">
+        <img src="{% static 'app/images/image2.jpg' %}" alt="Image 2">
+        <span class="image-text">B-Station (Near Alpha Cafe)</span>
+      </a>
+      <!-- Add more images with their respective text here -->
+    </div>
+  </div>
+</div>
+  <script>
+     window.onload = function() {
+  // Get all image elements in the gallery
+  const images = document.querySelectorAll('.image-gallery .gallery-item img');
+  
+  // Adjust the width of the text box based on each image's size
+  images.forEach(image => {
+    const imageText = image.nextElementSibling; // Select the following span containing the text
+    
+    // Set the width of the text box to match the image width
+    imageText.style.width = `${image.clientWidth}px`;
+  });
+};
+    document.addEventListener('DOMContentLoaded', function () {
+      // Function to open Google Maps with directions
+      function openMapWithDirections(destinationLat, destinationLng) {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+            const originLat = position.coords.latitude;
+            const originLng = position.coords.longitude;
+            const url = `https://www.google.com/maps/dir/?api=1&origin=${originLat},${originLng}&destination=${destinationLat},${destinationLng}&travelmode=driving`;
+            window.open(url, '_blank');
+          }, function (error) {
+            console.error('Error getting user location:', error);
+            // If there's an error, open the map without the user's current location
+            const url = `https://www.google.com/maps?q=${destinationLat},${destinationLng}`;
+            window.open(url, '_blank');
+          });
+        } else {
+          console.error('Geolocation is not supported by this browser');
+          // If geolocation is not supported, open the map without the user's current location
+          const url = `https://www.google.com/maps?q=${destinationLat},${destinationLng}`;
+          window.open(url, '_blank');
+        }
+      }
+  
+      // Button click event for Vijayawada
+      document.getElementById('vijayawada-map-btn').addEventListener('click', function () {
+        openMapWithDirections(16.509400, 80.625040);
+        
+      });
+  
+      // Button click event for Khammam
+      document.getElementById('khammam-map-btn').addEventListener('click', function () {
+        openMapWithDirections(16.527110, 80.639300); // Replace with the actual coordinates for Khammam
+      });
+    });
+  </script>
+</body>
+</html>

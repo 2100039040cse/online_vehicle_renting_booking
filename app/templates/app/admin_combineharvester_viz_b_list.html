@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'app/admin_auto_viz_a_list.css' %}">
+  <style>
+    .navbar-right a[href*="admin_add_combineharvester"] {
+      padding: 8px 15px; /* Adjust padding for button size */
+      background-color: #990011; /* Apply orange box color */
+      color: #FCF6F5; /* Set text color to black */
+      font-size: 18px; /* Increase font size for the button */
+      border-radius: 4px;
+    }</style>
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Viz-B</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+        {% endif %}
+        <a href="{% url 'admin_add_combineharvester' %}">Back</a>
+      </div>
+    </div> 
+  </nav>
+  <div class="background-image"></div>
+  <div class="vehicle-list">
+    <h2>Vehicle List</h2>
+    {% for combineharvester in combineharvesters_viz_b %}
+      <div class="vehicle-container"> 
+      <div class="vehicle-record">
+        <div class="vehicle-details">
+            <strong>Added By:</strong> {{ combineharvester.added_by.username }}<br>
+            <strong>Date Added:</strong> {{ combineharvester.date_added|date:"F j, Y, g:i a" }}<br>
+            <strong>Vehicle ID:</strong> {{ combineharvester.vehicle_id }}<br>
+            <strong>Vehicle Number:</strong> {{ combineharvester.vehicle_number }}<br>
+            <strong>Vehicle Name:</strong> {{ combineharvester.vehicle_name }}<br>
+            <strong>Rent Cost:</strong> {{ combineharvester.rent_cost }}<br>
+            <strong>Driver Cost:</strong> {{ combineharvester.driver_cost }}<br>
+            <strong>Location:</strong> {{ combineharvester.locatcombineharvester}}<br>
+            <strong>Station:</strong> {{ combineharvester.station }}<br>
+            <strong>Status:</strong> {{ combineharvester.status }}<br>
+            <!-- <strong>Terms & Conditions:</strong> {{ combineharvester.terms_conditions }}<br> -->
+           
+          <div class="btn-group">
+            <button class="btn-update" onclick="location.href=''">Update</button>
+            <form method="post" action="{% url 'delete_combineharvester' combineharvester.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn-delete">Delete</button>
+          </form>
+          </div>
+        </div>
+        <div class="vehicle-image">
+          <img src="{{ combineharvester.image.url }}" alt="Vehicle Image">
+        </div>
+        <div style="clear:both;"></div> 
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+      <div style="clear:both;"></div> 
+    {% endif %}
+  {% endfor %}
+  <div style="clear:both;"></div> 
+</div>
+
+</body>
+</html>

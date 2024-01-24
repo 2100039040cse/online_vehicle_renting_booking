@@ -1,0 +1,57 @@
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url('/static/app/images/bf.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.1; 
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    /* background-color: #f0f0f0; */
+    background-color: #FCF6F5;
+    color: #990011;
+    border-top-left-radius: 15px; 
+  border-top-right-radius: 15px; 
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border: 1px solid black;
+  }
+  
+  .navbar-left h1 {
+    margin: 0;
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-right a {
+    margin-left: 10px;
+    color: #990011;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  /* Style the anchor elements when hovered */
+.navbar-right a:hover {
+  color: gray; /* Change color on hover if desired */
+}
+
+/* Style specifically the "Become Partner" button */
+.navbar-right a[href*="admin_notification"] {
+  padding: 8px 15px; /* Adjust padding for button size */
+  background-color: #990011; /* Apply orange box color */
+  color: #FCF6F5; /* Set text color to black */
+  font-size: 18px; /* Increase font size for the button */
+  border-radius: 4px;
+}

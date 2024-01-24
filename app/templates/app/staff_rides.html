@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'app/staff_rides.css' %}">
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Rides</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          
+        {% endif %}
+        <a href="{% url 'staff_viz_a_rides' %}">VIZ-A</a>
+        <a href="{% url 'staff_viz_b_rides' %}">VIZ-B</a>
+        <!-- <a href="{% url 'staff_khm_a_rides' %}">KHM-A</a>
+        <a href="{% url 'staff_khm_b_rides' %}">KHM-B</a> -->
+        <a href="{% url 'staff_dashboard' %}">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  <link rel="stylesheet" href="{% static 'app/admin_notification.css' %}">
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Notifications</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+        {% endif %}
+        
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <div class="partner-table-container">
+    <table class="partner-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Vehicle Type</th>
+          <th>Number of Vehicles</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for partner in partners %}
+          <tr>
+            <td>{{ partner.fullname }}</td>
+            <td>{{ partner.phone }}</td>
+            <td>{{ partner.address }}</td>
+            <td>{{ partner.vehicle_type }}</td>
+            <td>{{ partner.num_vehicles }}</td>
+            <td>
+              <form method="post" action="">
+                {% csrf_token %}
+                <input type="hidden" name="partner_id" value="{{ partner.id }}">
+                {% if partner.contacted_by %}
+                  <button type="button" disabled>Contacted</button>
+                {% else %}
+                  <button type="submit" name="action" value="contact">Contact</button>
+                {% endif %}
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  </body>
+  </html>
+</body>
+</html>

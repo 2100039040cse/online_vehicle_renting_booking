@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  
+  <link rel="stylesheet" href="{% static 'app/auto_viz_a_list.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'app/auto_viz_a_list_mobile.css' %}"> -->
+  <style>
+    .navbar-right a[href*="viz_b_vehicle_list"] {
+      padding: 8px 15px; /* Adjust padding for button size */
+      background-color: #990011; /* Apply orange box color */
+      color: #FCF6F5; /* Set text color to black */
+      font-size: 18px; /* Increase font size for the button */
+      border-radius: 4px;
+    }</style>
+<body> 
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Combine Harvester</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <a href="{% url 'dashboard' %}">Dashboard</a>
+          <a href="{% url 'viz_b_vehicle_list' %}">Change Vehilcle</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <div class="vehicle-list">
+    <h2>Vehicle List</h2>
+    {% for combineharvester in combineharvesters_viz_b %}
+      <div class="vehicle-container"> 
+      <div class="vehicle-record">
+        <div class="vehicle-details">
+          <!-- <strong>Added By:</strong> {{ combineharvester.added_by.username }}<br>
+          <strong>Date Added:</strong> {{ combineharvester.date_added|date:"F j, Y, g:i a" }}<br> -->
+          <!-- <strong>Vehicle ID:</strong> {{ combineharvester.vehicle_id }}<br> -->
+          <strong>Vehicle Number:</strong> {{ combineharvester.vehicle_number }}<br>
+          <strong>Vehicle Name:</strong> {{ combineharvester.vehicle_name }}<br>
+          <strong>Rent Cost:</strong> {{ combineharvester.rent_cost }}<br>
+          <!-- <strong>Driver Name:</strong> {{ combineharvester.driver_name }}<br>  -->
+          <!-- <strong>Driver Contact:</strong> {{ combineharvester.driver_contact }}<br> -->
+          <strong>Driver Cost:</strong> {{ combineharvester.driver_cost }}<br>
+          <!-- <strong>Location:</strong> {{ combineharvester.location }}<br>
+          <strong>Station:</strong> {{ combineharvester.station }}<br> -->
+          <strong>Status:</strong> {{ combineharvester.status }}<br>
+          <!-- <strong>Terms & Conditions:</strong> {{ combineharvester.terms_conditions }}<br> -->
+          <div class="btn-group">
+            <button class="btn-book-now" onclick="redirectToPayment('{{ combineharvester.id }}')">Book Now</button>
+          </div>
+        </div>
+        <div class="vehicle-image">
+          <img src="{{ combineharvester.image.url }}" alt="Vehicle Image">
+        </div>
+        <div style="clear:both;"></div> 
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+      <div style="clear:both;"></div> 
+    {% endif %}
+  {% endfor %}
+  <div style="clear:both;"></div> 
+</div>
+<script>
+  function redirectToPayment(combineharvesterId) {
+    var redirectUrl = "{% url 'combineharvester_viz_b_payment' combineharvester_id='0' %}".replace('0', combineharvesterId);
+    location.href = redirectUrl;
+  }
+
+</script>
+</body>
+</html>

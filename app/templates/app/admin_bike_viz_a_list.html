@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'app/admin_auto_viz_a_list.css' %}">
+  <style>
+    .navbar-right a[href*="admin_add_bike"] {
+      padding: 8px 15px; /* Adjust padding for button size */
+      background-color: #990011; /* Apply orange box color */
+      color: #FCF6F5; /* Set text color to black */
+      font-size: 18px; /* Increase font size for the button */
+      border-radius: 4px;
+    }</style>
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Viz-A</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+        {% endif %}
+        <a href="{% url 'admin_add_bike' %}">Back</a>
+      </div>
+    </div> 
+  </nav>
+  <div class="background-image"></div>
+  <div class="vehicle-list">
+    <h2>Vehicle List</h2>
+    {% for bike in bikes_viz_a %}
+      <div class="vehicle-container"> 
+      <div class="vehicle-record">
+        <div class="vehicle-details">
+          <strong>Added By:</strong> {{ bike.added_by.username }}<br>
+          <strong>Date Added:</strong> {{ bike.date_added|date:"F j, Y, g:i a" }}<br>
+          <strong>Vehicle ID:</strong> {{ bike.vehicle_id }}<br>
+          <strong>Vehicle Number:</strong> {{ bike.vehicle_number }}<br>
+          <strong>Vehicle Name:</strong> {{ bike.vehicle_name }}<br>
+          <strong>Rent Cost:</strong> {{ bike.rent_cost }}<br>
+          <!-- <strong>Driver Name:</strong> {{ bike.driver_name }}<br> 
+          <strong>Driver Contact:</strong> {{ bike.driver_contact }}<br>
+          <strong>Driver Cost:</strong> {{ bike.driver_cost }}<br> -->
+          <strong>Location:</strong> {{ bike.location }}<br>
+          <strong>Station:</strong> {{ bike.station }}<br>
+          <strong>Status:</strong> {{ bike.status }}<br>
+          <!-- <strong>Terms & Conditions:</strong> {{ bike.terms_conditions }}<br> -->
+           
+          <div class="btn-group">
+            <button class="btn-update" onclick="location.href=''">Update</button>
+            <form method="post" action="{% url 'delete_bike' bike.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn-delete">Delete</button>
+          </form>
+          </div>
+        </div>
+        <div class="vehicle-image">
+          <img src="{{ bike.image.url }}" alt="Vehicle Image">
+        </div>
+        <div style="clear:both;"></div> 
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+      <div style="clear:both;"></div> 
+    {% endif %}
+  {% endfor %}
+  <div style="clear:both;"></div> 
+</div>
+
+</body>
+</html>

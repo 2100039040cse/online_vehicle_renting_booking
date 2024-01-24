@@ -1,0 +1,132 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f0f0f0; /* Change to your preferred background color */
+  }
+  
+  .navbar-left h1 {
+    margin: 0;
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-right a {
+    margin-left: 10px;
+  }
+
+  /* Style for the vehicle list container */
+.vehicle-list {
+  margin: 20px;
+}
+
+/* Style for the vehicle list container */
+.vehicle-list {
+  margin: 20px;
+}
+
+/* Style for each vehicle record */
+.vehicle-record {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.vehicle-details {
+  float: right;
+  width: calc(100% - 220px); /* Adjust width to accommodate the image */
+}
+
+.vehicle-image {
+  float: left;
+  margin-right: 20px;
+}
+
+.vehicle-image img {
+  max-width: 200px; /* Adjust the maximum width of the image */
+  height: auto; /* Maintain aspect ratio */
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Style for the update and delete buttons */
+.btn-group {
+  margin-top: 5px;
+}
+
+.btn-group button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.btn-update {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.btn-delete {
+  background-color: #f44336;
+  color: white;
+  border: none;
+}
+.vehicle-container {
+  width: calc(33.33% - 20px);
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .vehicle-container {
+    width: 100%;
+    margin-right: 0;
+  }
+ 
+}
+
+/* Style for the filters container */
+.filters {
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.filter-group label {
+  flex: 0 0 35%; /* Adjust label width */
+  text-align: right;
+  margin-right: 10px;
+}
+
+.filter-group select,
+.filter-group input {
+  flex: 0 0 60%; /* Adjust input width */
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Adjust styles for smaller screens if needed */
+@media (max-width: 768px) {
+  .filter-group label,
+  .filter-group select,
+  .filter-group input {
+    flex: 0 0 100%;
+    margin-right: 0;
+  }
+}

@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'app/admin_auto_khm_a_list.css' %}">
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Welcome to Admin Dashboard!</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+        {% endif %}
+        <a href="{% url 'admin_add_auto' %}">Back</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="vehicle-list">
+    <h2>Vehicle List</h2>
+    {% for auto in autos_khm_a %}
+      <div class="vehicle-container">
+      <div class="vehicle-record">
+        <div class="vehicle-details">
+          <strong>Added By:</strong> {{ auto.added_by.username }}<br>
+          <strong>Date Added:</strong> {{ auto.date_added|date:"F j, Y, g:i a" }}<br>
+          <strong>Vehicle ID:</strong> {{ auto.vehicle_id }}<br>
+          <strong>Vehicle Number:</strong> {{ auto.vehicle_number }}<br>
+          <strong>Vehicle Name:</strong> {{ auto.vehicle_name }}<br>
+          <strong>Rent Cost:</strong> {{ auto.rent_cost }}<br>
+          <strong>Driver Cost:</strong> {{ auto.driver_cost }}<br>
+          <strong>Location:</strong> {{ auto.location }}<br>
+          <strong>Station:</strong> {{ auto.station }}<br>
+          <strong>Status:</strong> {{ auto.status }}<br>
+          <strong>Terms & Conditions:</strong> {{ auto.terms_conditions }}<br>
+          
+          <div class="btn-group">
+            <button class="btn-update" onclick="location.href=''">Update</button>
+            <form method="post" action="{% url 'delete_auto' auto.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn-delete">Delete</button>
+          </form>
+          </div>
+        </div>
+        <div class="vehicle-image">
+          <img src="{{ auto.image.url }}" alt="Vehicle Image">
+        </div>
+        <div style="clear:both;"></div> 
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+      <div style="clear:both;"></div> 
+    {% endif %}
+  {% endfor %}
+  <div style="clear:both;"></div> 
+</div>
+
+</body>
+</html>

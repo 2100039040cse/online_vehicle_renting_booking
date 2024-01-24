@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'app/staff_cancel.css' %}">
+  <style>
+    .navbar-right a[href*="admin_rides"] {
+    padding: 8px 15px; /* Adjust padding for button size */
+    background-color: #990011; /* Apply orange box color */
+    color: #FCF6F5; /* Set text color to black */
+    font-size: 18px; /* Increase font size for the button */
+    border-radius: 4px;
+  }
+  </style>
+</head>
+<body>
+  <nav> 
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Cancel Reasons</h1>
+      </div> 
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+        {% endif %}
+        <a href="{% url 'admin_rides' %}">Back</a>
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <div class="cancel-list-container">
+    <h2>Cancellation Reasons</h2>
+    <ul>
+      {% for reason in cancellation_reasons %}
+        <li>
+          <p>Reason: {{ reason.get_reason_display }}</p>
+          <p>User: {{ reason.user.username }}</p>
+          <p>Timestamp: {{ reason.timestamp }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html> 

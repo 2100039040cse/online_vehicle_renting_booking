@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  
+  <link rel="stylesheet" href="{% static 'app/auto_viz_a_list.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'app/auto_viz_a_list_mobile.css' %}"> -->
+  
+<body> 
+  <nav> 
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Traveller</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <a href="{% url 'dashboard' %}">Dashboard</a>
+          <a href="{% url 'viz_a_vehicle_list' %}">Change Vehilcle</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <div class="vehicle-list">
+    <h2>Vehicle List</h2>
+    {% for traveller in travellers_viz_a %}
+      <div class="vehicle-container"> 
+      <div class="vehicle-record">
+        <div class="vehicle-details">
+          <!-- <strong>Added By:</strong> {{ traveller.added_by.username }}<br>
+          <strong>Date Added:</strong> {{ traveller.date_added|date:"F j, Y, g:i a" }}<br> -->
+          <!-- <strong>Vehicle ID:</strong> {{ traveller.vehicle_id }}<br> -->
+          <strong>Vehicle Number:</strong> {{ traveller.vehicle_number }}<br>
+          <strong>Vehicle Name:</strong> {{ traveller.vehicle_name }}<br>
+          <strong>Rent Cost:</strong> {{ traveller.rent_cost }}<br>
+          <!-- <strong>Driver Name:</strong> {{ traveller.driver_name }}<br>  -->
+          <!-- <strong>Driver Contact:</strong> {{ traveller.driver_contact }}<br> -->
+          <strong>Driver Cost:</strong> {{ traveller.driver_cost }}<br>
+          <!-- <strong>Location:</strong> {{ traveller.location }}<br>
+          <strong>Station:</strong> {{ traveller.station }}<br> -->
+          <strong>Status:</strong> {{ traveller.status }}<br>
+          <!-- <strong>Terms & Conditions:</strong> {{ traveller.terms_conditions }}<br> -->
+          <div class="btn-group">
+            <button class="btn-book-now" onclick="redirectToPayment('{{ traveller.id }}')">Book Now</button>
+          </div>
+        </div>
+        <div class="vehicle-image">
+          <img src="{{ traveller.image.url }}" alt="Vehicle Image">
+        </div>
+        <div style="clear:both;"></div> 
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+      <div style="clear:both;"></div> 
+    {% endif %}
+  {% endfor %}
+  <div style="clear:both;"></div> 
+</div>
+<script>
+  function redirectToPayment(travellerId) {
+    var redirectUrl = "{% url 'traveller_viz_a_payment' traveller_id='0' %}".replace('0', travellerId);
+    location.href = redirectUrl;
+  }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url('/static/app/images/bf.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.1; 
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    /* background-color: #f0f0f0; */
+    background-color: #FCF6F5;
+    color: #990011;
+    border-top-left-radius: 15px; 
+  border-top-right-radius: 15px; 
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border: 1px solid black;
+  }
+  
+  .navbar-left h1 {
+    margin: 0;
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-right a {
+    margin-left: 10px;
+    color: #990011;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  /* Style the anchor elements when hovered */
+.navbar-right a:hover {
+  color: gray; /* Change color on hover if desired */
+}
+
+/* Style specifically the "Become Partner" button */
+.navbar-right a[href*="viz_station_list"] {
+  padding: 8px 15px; /* Adjust padding for button size */
+  background-color: #990011; /* Apply orange box color */
+  color: #FCF6F5; /* Set text color to black */
+  font-size: 18px; /* Increase font size for the button */
+  border-radius: 4px;
+}
+
+/* New styles for added elements */
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.quotation {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.quotation blockquote {
+  font-style: italic;
+  font-size: 18px;
+}
+
+.image-gallery {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start; /* Adjust alignment as needed */
+  flex-wrap: wrap; /* Allow images to wrap */
+  position: relative; /* Set position to relative for absolute positioning of text */
+}
+
+.image-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start; /* Adjust alignment as needed */
+  margin-bottom: 20px; /* Add margin between rows */
+}
+
+.image-row a {
+  width: calc(20% - 10px); /* Set width for each image in a row with margin */
+  position: relative;
+  margin: 0 5px;
+  overflow: hidden; /* Hide overflow to contain image within border */
+  border-radius: 10px; /* Apply border-radius for curved edges */
+  border: 2px solid #000; /* Add border styles */
+  display: inline-block;
+  height: 120px;
+}
+
+.image-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintain aspect ratio while covering container */
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.image-gallery img:hover {
+  transform: scale(1.1);
+}
+
+.image-gallery .image-text {
+  position: absolute;
+  bottom: 0; /* Position text at the bottom */
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: white; /* Change text color */
+  background-color: rgba(0, 0, 0, 0.7); /* Change background color and opacity */
+  padding: 5px;
+  font-size: 14px;
+  opacity: 0; /* Initially hide text */
+  transition: opacity 0.3s ease-in-out;
+}
+
+.image-gallery a:hover .image-text {
+  opacity: 1; /* Show text on image hover */
+}
+

@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'app/admin_add_vehicle.css' %}">
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Vehicles</h1>
+      </div>
+      <div class="navbar-right"> 
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+        {% endif %}
+        <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <div class="form-container">
+    <form class="vehicle-form">
+      <div class="button-group">
+        <div class="left-buttons">
+          <a href="{% url 'admin_add_bike' %}" class="button-link"><button type="button">Bike</button></a>
+          <a href="{% url 'admin_add_car' %}" class="button-link"><button type="button">Car</button></a>
+          <a href="{% url 'admin_add_auto' %}" class="button-link"><button type="button">Auto</button></a>
+          <a href="{% url 'admin_add_traveller' %}" class="button-link"><button type="button">Traveller</button></a>
+          <a href="{% url 'admin_add_truck' %}" class="button-link"><button type="button">Truck</button></a>
+        </div>
+        <div class="right-buttons">
+          <a href="{% url 'admin_add_tractor' %}" class="button-link"><button type="button">Tractor</button></a>
+          <a href="{% url 'admin_add_jcb' %}" class="button-link"><button type="button">JCB</button></a>
+          <a href="{% url 'admin_add_borewelltruck' %}" class="button-link"><button type="button">Borewell Truck</button></a>
+          <a href="{% url 'admin_add_combineharvester' %}" class="button-link"><button type="button">Combine Harvester</button></a>
+          <a href="{% url 'admin_add_others' %}" class="button-link"><button type="button">Others</button></a>
+          
+        </div>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>

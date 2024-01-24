@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  <link rel="stylesheet" href="{% static 'app/user_feed_back.css' %}">
+  
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Feed Back</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <a href="{% url 'dashboard' %}">Dashboard</a>
+          <a href="{% url 'user_bookings' %}">My Bookings</a>
+        {% endif %}
+        
+        
+      </div>
+    </div>
+    
+  </nav>
+  <div class="background-image"></div>
+  <div class="feedback-container">
+    <h2>Feedback Form</h2>
+    <form action="" method="post">
+      {% csrf_token %}
+      {% if messages %}
+        {% for message in messages %}
+            <div class="feedback-message {% if message.tags %} {{ message.tags }} {% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+      <div class="feedback-question">
+        <label for="ease_of_booking">Did you encounter any difficulties during the booking process?</label>
+        <div class="emoji-rating">
+          <!-- Repeat this block for each question -->
+          <input type="radio" id="emoji1_ease" name="ease_of_booking" value="1">
+          <label for="emoji1_ease">😞</label>
+      
+          <input type="radio" id="emoji2_ease" name="ease_of_booking" value="2">
+          <label for="emoji2_ease">😐</label>
+      
+          <input type="radio" id="emoji3_ease" name="ease_of_booking" value="3">
+          <label for="emoji3_ease">😊</label>
+      
+          <input type="radio" id="emoji4_ease" name="ease_of_booking" value="4">
+          <label for="emoji4_ease">😃</label>
+      
+          <input type="radio" id="emoji5_ease" name="ease_of_booking" value="5">
+          <label for="emoji5_ease">😍</label>
+        </div>
+      </div>
+
+      <div class="feedback-question">
+        <label for="vehicle_condition">Were there any issues with the vehicle's performance or maintenance?</label>
+        <div class="emoji-rating">
+          <input type="radio" id="emoji1_condition" name="vehicle_condition" value="1">
+          <label for="emoji1_condition">😞</label>
+      
+          <input type="radio" id="emoji2_condition" name="vehicle_condition" value="2">
+          <label for="emoji2_condition">😐</label>
+      
+          <input type="radio" id="emoji3_condition" name="vehicle_condition" value="3">
+          <label for="emoji3_condition">😊</label>
+      
+          <input type="radio" id="emoji4_condition" name="vehicle_condition" value="4">
+          <label for="emoji4_condition">😃</label>
+      
+          <input type="radio" id="emoji5_condition" name="vehicle_condition" value="5">
+          <label for="emoji5_condition">😍</label>
+        </div>
+      </div>
+    
+      <div class="feedback-question">
+        <label for="driver_team_service">Did the driver/team meet your expectations in terms of knowledge and service?</label>
+        <div class="emoji-rating">
+          <input type="radio" id="emoji1_service" name="driver_team_service" value="1">
+          <label for="emoji1_service">😞</label>
+      
+          <input type="radio" id="emoji2_service" name="driver_team_service" value="2">
+          <label for="emoji2_service">😐</label>
+      
+          <input type="radio" id="emoji3_service" name="driver_team_service" value="3">
+          <label for="emoji3_service">😊</label>
+      
+          <input type="radio" id="emoji4_service" name="driver_team_service" value="4">
+          <label for="emoji4_service">😃</label>
+      
+          <input type="radio" id="emoji5_service" name="driver_team_service" value="5">
+          <label for="emoji5_service">😍</label>
+        </div>
+      </div>
+    
+      <div class="feedback-question">
+        <label for="experience">How would you rate your overall experience?</label>
+        <div class="emoji-rating">
+          <input type="radio" id="emoji1_experience" name="experience" value="1">
+          <label for="emoji1_experience">😞</label>
+      
+          <input type="radio" id="emoji2_experience" name="experience" value="2">
+          <label for="emoji2_experience">😐</label>
+      
+          <input type="radio" id="emoji3_experience" name="experience" value="3">
+          <label for="emoji3_experience">😊</label>
+      
+          <input type="radio" id="emoji4_experience" name="experience" value="4">
+          <label for="emoji4_experience">😃</label>
+      
+          <input type="radio" id="emoji5_experience" name="experience" value="5">
+          <label for="emoji5_experience">😍</label>
+        </div>
+      </div>
+    </body> 
+    </html>
+
+      <div class="feedback-question">
+        <label for="additional_comments">Additional Comments:</label>
+        <textarea name="additional_comments" rows="4" cols="50"></textarea>
+      </div>
+
+      <button type="submit">Submit Feedback</button>
+    </form>
+  </div>
+  
+</body> 
+</html> 

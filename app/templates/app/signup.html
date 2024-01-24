@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup</title>
+  <link rel="stylesheet" href="{% static 'app/signup.css' %}">
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1></h1>
+      </div>
+      <div class="navbar-right">
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'become_partner' %}">Become Partner</a>
+        <a href="{% url 'index' %}">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  
+
+  <div class="signup-container">
+    <div class="signup-form">
+      <h1 class="signup-heading">Signup</h1>
+      {% if request.GET.registration_success %}
+        <p>Registration complete! You can now <a href="{% url 'login' %}">login</a>.</p>
+      {% endif %}
+      <form method="POST">
+          {% csrf_token %}
+          {% if messages %}
+          {% for message in messages %}
+              <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+                  {{ message }}
+              </div>
+          {% endfor %}
+      {% endif %}
+          {{ form.as_p }}
+          <div class="signup-btn-container">
+            <button type="submit">Signup</button>
+            <a href="{% url 'login' %}"> Already have an account? Sign in</a>
+          </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
+
+
+<!-- <video autoplay loop muted class="background-video">
+    <source src="{% static 'app/videos/one.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video> 
+
+

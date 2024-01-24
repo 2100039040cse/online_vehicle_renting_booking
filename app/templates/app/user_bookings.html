@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  <link rel="stylesheet" href="{% static 'app/user_bookings.css' %}">
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Bookings</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <a href="{% url 'dashboard' %}">Dashboard</a>
+          <a href="{% url 'user_refund' %}">Refunds</a>
+        {% endif %}
+        
+        
+      </div>
+    </div>
+    
+  </nav>
+  <div class="background-image"></div>
+  <div class="user-bookings">
+    <h2>My Bookings</h2>
+    <div class="bookings-table">
+      <div class="messages">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="message {% if message.tags %} {{ message.tags }} {% endif %}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+      <div class="table-header">
+        <div class="header-column">Vehicle</div>
+        <div class="header-column">Driver</div>
+        <div class="header-column">Dates</div>
+        <div class="header-column">Address</div>
+        <div class="header-column">Ride Action</div>
+  <div class="header-column">Feedback Action</div>
+  <div class="header-column">Cancel Action</div>
+      </div>
+      {% for booking in user_bookings %}
+        <div class="booking-row">
+          <div class="row-column">ID: {{ booking.vehicle_id }}<br>Number: {{ booking.vehicle_number }}<br>Name: {{ booking.vehicle_name }}<br>Cost/hr: {{ booking.rent_cost }}</div>
+
+          <div class="row-column">Name: {{ booking.driver_name }}<br>Contact: {{ booking.driver_contact }}<br>Cost/hr: {{ booking.driver_cost }}<br>Total Cost: {{ booking.total_cost }}</div>
+          <div class="row-column">Start Date: {{ booking.start_datetime }}<br>End Date: {{ booking.end_datetime }}<br></div>
+          <div class="row-column">Address: {{ booking.address }}<br>Location: {{ booking.location }}<br>Station: {{ booking.station }}</div>
+          
+          <div class="row-column">
+            {% if not booking.ride_completed %}
+              <button class="extend-btn" onclick="showPasswordForm('{{ booking.id }}')">Ride Completed</button>
+              <div id="passwordForm_{{ booking.id }}" style="display: none;">
+                <form method="post" action="{% url 'ride_completed' booking.id %}" onsubmit="return validatePassword('{{ booking.id }}')">
+                  {% csrf_token %}
+                  <label for="password">Password:</label>
+                  <input type="password" id="password_{{ booking.id }}" name="password">
+                  <button type="submit">Submit</button>
+                </form>
+                <p id="passwordError_{{ booking.id }}" style="color: red;"></p>
+              </div>
+            {% else %}
+              <button class="extend-btn" disabled>Already Completed</button>
+            {% endif %}
+          </div>
+          <div class="row-column">
+            <a href="{% url 'user_feed_back' booking.id %}" class="feedback-btn">Feedback</a>
+          </div>
+          <div class="row-column">
+            {% if not booking.is_canceled %}
+              <form method="post" action="{% url 'user_cancel' payment_id=booking.id %}">
+                {% csrf_token %}
+                <button type="submit" class="cancel-btn">Cancel</button>
+              </form>
+            {% else %}
+              <button class="cancel-btn" disabled>Canceled</button>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <script>
+    function showPasswordForm(bookingId) {
+      // Hide all other password forms
+      document.querySelectorAll("[id^='passwordForm_']").forEach(function(form) {
+        form.style.display = 'none';
+      });
+  
+      // Display the selected password form
+      document.getElementById('passwordForm_' + bookingId).style.display = 'block';
+    }
+  
+    function validatePassword(bookingId) {
+      var passwordInput = document.getElementById('password_' + bookingId);
+      var passwordError = document.getElementById('passwordError_' + bookingId);
+  
+      if (!passwordInput.value.trim()) {
+        passwordError.innerHTML = 'Password is required.';
+        return false;
+      }
+  
+      // Add additional password validation logic if needed
+  
+      // Clear previous error message
+      passwordError.innerHTML = '';
+      return true;
+    }
+  </script>
+</body> 
+</html> 
+

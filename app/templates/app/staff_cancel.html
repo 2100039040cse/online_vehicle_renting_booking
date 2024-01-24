@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'app/staff_cancel.css' %}">
+</head>
+<body>
+  <nav> 
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Cancel Reasons</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <!-- <a href="{% url 'staff_dashboard' %}">Dashboard</a> -->
+        {% endif %}
+        <a href="{% url 'staff_rides' %}">Back</a>
+         
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <div class="cancel-list-container">
+    <h2>Cancellation Reasons</h2>
+    <ul>
+      {% for reason in cancellation_reasons %}
+        <li>
+          <p>Reason: {{ reason.get_reason_display }}</p>
+          <p>User: {{ reason.user.username }}</p>
+          <p>Timestamp: {{ reason.timestamp }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html> 

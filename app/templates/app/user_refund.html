@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  <link rel="stylesheet" href="{% static 'app/user_refund.css' %}">
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+</head>
+<body>
+  <nav>
+    <div class="navbar"> 
+      <div class="navbar-left">
+        <h1>Refunds</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <a href="{% url 'account_view' %}">Account</a>
+          <a href="{% url 'user_bookings' %}">My Bookings</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <div class="canceled-bookings">
+    <h2>Canceled Bookings</h2>
+    {% if canceled_bookings %}
+      <table>
+        <thead>
+          <tr>
+            <th>Payment ID</th>
+            <th>Vehicle ID</th>
+            <th>Vehicle Name</th>
+            <th>Driver Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Total Cost Before Cancelling</th>
+            <th>Refunded Cost After Cancelling</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for canceled_booking in canceled_bookings %}
+            <tr>
+              <td>{{ canceled_booking.payment.id }}</td>
+              <td>{{ canceled_booking.payment.vehicle_id }}</td>
+              <td>{{ canceled_booking.payment.vehicle_name }}</td>
+              <td>{{ canceled_booking.payment.driver_name }}</td>
+              <td>{{ canceled_booking.payment.start_datetime }}</td>
+              <td>{{ canceled_booking.payment.end_datetime }}</td>
+              <td>{{ canceled_booking.original_total_cost }}</td>
+              <td>{{ canceled_booking.remaining_cost }}</td>
+              <td>{{ canceled_booking.timestamp }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No canceled bookings found.</p>
+    {% endif %}
+  </div>
+</body> 
+</html> 

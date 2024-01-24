@@ -1,0 +1,306 @@
+/* .background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background-image: url('/static/app/images/logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.5; 
+} */
+
+/* body {
+  margin: 0;
+} */
+
+ /* .background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  object-fit: cover; 
+  z-index: -1; 
+  opacity: 0.5; 
+} */
+
+.background-video {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%; 
+  height: 100%; 
+  z-index: -1;
+  object-fit: cover;
+  /* opacity: 0.5; */
+  border-radius: 15px;
+  border: 3px solid #990011;
+}
+
+.content-wrapper {
+  display: flex;
+  height: 50vh; 
+  margin-top: 20px; 
+}
+
+.content-left {
+  width: 50%; 
+  padding: 20px; 
+  box-sizing: border-box; 
+  background-color: #FCF6F5;
+  /* background-color: #FBF8BE; */
+  color: black;
+  position: relative;
+border-radius: 15px;
+  margin-right: 10px; 
+}
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.blinking-text {
+  animation: blink 3s infinite;
+  position: absolute; 
+  top: 20px; 
+  left: 20px;
+  font-size: 24px;
+  color: #990011;
+}
+.content-right {
+  width: 50%; 
+  position: relative; 
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  /* background-color: #f0f0f0; */
+  background-color: #FCF6F5;
+  color: #990011;
+  border-top-left-radius: 15px; 
+  border-top-right-radius: 15px; 
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border: 1px solid black;
+}
+  .navbar-left h1 {
+    margin: 0;
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    
+  }
+  
+  .navbar-right a {
+    margin-left: 10px;
+    color: #990011;
+    text-decoration: none;
+    font-size: 18px;
+  } 
+
+.navbar-right a:hover {
+  color: gray;
+}
+   
+/* Style specifically the "Become Partner" button */
+.navbar-right a[href*="become_partner"] {
+  padding: 8px 15px; /* Adjust padding for button size */
+  background-color: #990011; /* Apply orange box color */
+  color: white; /* Set text color to black */
+  font-size: 18px; /* Increase font size for the button */
+  border-radius: 4px;
+}
+
+body {
+  /* background-color: #f3dafc; */
+  background-color: #FCF6F5;
+  /* background-color: #FBF8BE;  */
+}
+.services-section,
+.partners-section {
+  text-align: center;
+  margin-top: 20px;
+  color: black;
+}
+
+.services-section h2,
+.partners-section h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.service,
+.partner {
+  background-color: #FCF6F5;
+  /* background-color: #FBF8BE; */
+  /* padding: 20px; */
+  padding: 0;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  border: 1px solid #990011;
+  
+}
+
+/* .service h3,
+.partner h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  
+} */
+.service h3,
+.partner h3 {
+  background-color: #990011;
+  padding: 10px 20px; 
+  /* border-radius: 10px; */
+  margin-top: 0; 
+  color: white; 
+  cursor: pointer;
+  
+}
+.service p {
+  color: black;
+}
+
+
+
+.service-container,
+.partner-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px; 
+  justify-content: center;
+}
+
+.partner-container {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.service,
+.partner {
+  margin-bottom: 20px; 
+}
+
+
+/* .service:nth-child(odd) {
+  background-color: #4CAF50; 
+}
+
+.service:nth-child(even) {
+  background-color: #2196F3; 
+}
+
+.service h3 {
+  color: white; 
+}
+
+.service p {
+  color: black; 
+} */
+
+
+
+/* Footer Styles */
+.footer-section {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-content {
+  flex: 1;
+}
+
+.social-media a {
+  margin-right: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+
+.round-logo {
+  border-radius: 50%;
+  width: 100px; /* Adjust the width as needed */
+  height: 100px; /* Adjust the height as needed */
+  object-fit: cover;
+}
+
+
+
+
+
+
+
+
+
+/* CSS for vehicles and partners */
+/*
+.vehicles-section,
+.partners-section {
+  margin-top: 20px;
+}
+
+.vehicles-section h2,
+.partners-section h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.vehicle,
+.partner {
+  background-color: #333;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.vehicle h3,
+.partner h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+*/
+
+
+
+
+
+
+
+/* .services-section {
+  margin-top: 20px;
+}
+
+.services-section h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.service {
+  background-color: #333;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.service h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+} */

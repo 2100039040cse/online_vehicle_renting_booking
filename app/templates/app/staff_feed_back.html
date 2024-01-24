@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'app/staff_feed_back.css' %}">
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Feed Back</h1>
+      </div>
+      <div class="navbar-right">
+        <a href="{% url 'staff_rides' %}">Back</a>
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <div class="feedback-list-container">
+    <h2>Feedback List</h2>
+    <ul>
+      {% for feedback in feedback_list %}
+        <li>
+          <p>User: {{ feedback.user.username }}</p>
+          <p>Payment ID: {{ feedback.payment_id }}</p>
+          <p>Vehicle ID: {{ feedback.payment.vehicle_id }}</p>
+          <p>Ease of Booking: {{ feedback.ease_of_booking }}</p>
+          <p>Vehicle Condition: {{ feedback.vehicle_condition }}</p>
+          <p>Driver/Team Service: {{ feedback.driver_team_service }}</p>
+          <p>Experience: {{ feedback.experience }}</p>
+          <p>Additional Comments: {{ feedback.additional_comments }}</p>
+          <p>Given At: {{ feedback.created_at }}</p>
+          
+        </li>
+      {% endfor %}
+    </ul>
+    
+  </div>
+</body>
+</html>
+ 

@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'app/admin_auto_viz_b_list.css' %}">
+  <style>
+    .navbar-right a[href*="admin_add_car"] {
+      padding: 8px 15px; /* Adjust padding for button size */
+      background-color: #990011; /* Apply orange box color */
+      color: #FCF6F5; /* Set text color to black */
+      font-size: 18px; /* Increase font size for the button */
+      border-radius: 4px;
+    }</style>
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Viz-B</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+        {% endif %}
+        <a href="{% url 'admin_add_car' %}">Back</a>
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <div class="vehicle-list">
+    <h2>Vehicle List</h2>
+    {% for car in cars_viz_b %}
+      <div class="vehicle-container">
+      <div class="vehicle-record">
+        <div class="vehicle-details">
+          <strong>Added By:</strong> {{ car.added_by.username }}<br>
+          <strong>Date Added:</strong> {{ car.date_added|date:"F j, Y, g:i a" }}<br>
+          <strong>Vehicle ID:</strong> {{ car.vehicle_id }}<br>
+          <strong>Vehicle Number:</strong> {{ car.vehicle_number }}<br>
+          <strong>Vehicle Name:</strong> {{ car.vehicle_name }}<br>
+          <strong>Rent Cost:</strong> {{ car.rent_cost }}<br>
+          <strong>Driver Name:</strong> {{ car.driver_name }}<br> 
+          <strong>Driver Contact:</strong> {{ car.driver_contact }}<br>
+          <strong>Driver Cost:</strong> {{ car.driver_cost }}<br>
+          <strong>Location:</strong> {{ car.location }}<br>
+          <strong>Station:</strong> {{ car.station }}<br>
+          <strong>Status:</strong> {{ car.status }}<br>
+          <!-- <strong>Terms & Conditions:</strong> {{ car.terms_conditions }}<br> -->
+          
+          <div class="btn-group">
+            <button class="btn-update" onclick="location.href=''">Update</button>
+            <form method="post" action="{% url 'delete_car' car.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn-delete">Delete</button>
+          </form>
+          </div>
+        </div>
+        <div class="vehicle-image">
+          <img src="{{ car.image.url }}" alt="Vehicle Image">
+        </div>
+        <div style="clear:both;"></div> 
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+      <div style="clear:both;"></div> 
+    {% endif %}
+  {% endfor %}
+  <div style="clear:both;"></div> 
+</div>
+
+</body>
+</html>

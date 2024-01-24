@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  
+  <link rel="stylesheet" href="{% static 'app/auto_viz_a_list.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'app/auto_viz_a_list_mobile.css' %}"> -->
+  <style>
+    .navbar-right a[href*="viz_b_vehicle_list"] {
+      padding: 8px 15px; /* Adjust padding for button size */
+      background-color: #990011; /* Apply orange box color */
+      color: #FCF6F5; /* Set text color to black */
+      font-size: 18px; /* Increase font size for the button */
+      border-radius: 4px;
+    }</style>
+<body> 
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Tractor</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <a href="{% url 'dashboard' %}">Dashboard</a>
+          <a href="{% url 'viz_b_vehicle_list' %}">Change Vehilcle</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <div class="vehicle-list">
+    <h2>Vehicle List</h2>
+    {% for tractor in tractors_viz_b %}
+      <div class="vehicle-container"> 
+      <div class="vehicle-record">
+        <div class="vehicle-details">
+          <!-- <strong>Added By:</strong> {{ tractor.added_by.username }}<br>
+          <strong>Date Added:</strong> {{ tractor.date_added|date:"F j, Y, g:i a" }}<br> -->
+          <!-- <strong>Vehicle ID:</strong> {{ tractor.vehicle_id }}<br> -->
+          <strong>Vehicle Number:</strong> {{ tractor.vehicle_number }}<br>
+          <strong>Vehicle Name:</strong> {{ tractor.vehicle_name }}<br>
+          <strong>Rent Cost:</strong> {{ tractor.rent_cost }}<br>
+          <!-- <strong>Driver Name:</strong> {{ tractor.driver_name }}<br>  -->
+          <!-- <strong>Driver Contact:</strong> {{ tractor.driver_contact }}<br> -->
+          <strong>Driver Cost:</strong> {{ tractor.driver_cost }}<br>
+          <!-- <strong>Location:</strong> {{ tractor.location }}<br>
+          <strong>Station:</strong> {{ tractor.station }}<br> -->
+          <strong>Status:</strong> {{ tractor.status }}<br>
+          <!-- <strong>Terms & Conditions:</strong> {{ tractor.terms_conditions }}<br> -->
+          <div class="btn-group">
+            <button class="btn-book-now" onclick="redirectToPayment('{{ tractor.id }}')">Book Now</button>
+          </div>
+        </div>
+        <div class="vehicle-image">
+          <img src="{{ tractor.image.url }}" alt="Vehicle Image">
+        </div>
+        <div style="clear:both;"></div> 
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+      <div style="clear:both;"></div> 
+    {% endif %}
+  {% endfor %}
+  <div style="clear:both;"></div> 
+</div>
+<script>
+  function redirectToPayment(tractorId) {
+    var redirectUrl = "{% url 'tractor_viz_b_payment' tractor_id='0' %}".replace('0', tractorId);
+    location.href = redirectUrl;
+  }
+
+</script>
+</body>
+</html>

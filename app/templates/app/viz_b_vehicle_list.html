@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  <link rel="stylesheet" href="{% static 'app/viz_b_vehicle_list.css' %}">
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>B-Station</h1> 
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <a href="{% url 'dashboard' %}">Dashboard</a>
+          <a href="{% url 'viz_station_list' %}">Change Station</a>
+        {% endif %}
+        
+        
+      </div>
+    </div>
+
+  </nav>
+  <div class="background-image"></div>
+
+
+
+  <div class="content">
+    <div class="quotation">
+      <blockquote> 
+        <p>We Believe in transparency</p>
+      </blockquote>
+    </div>
+
+    <div class="image-gallery">
+      <div class="image-row">
+        <a href="{% url 'bike_viz_b_list' %}">
+          <img src="{% static 'app/images/bike-icon.png' %}" alt="bike">
+          <span class="image-text">Bike</span>
+        </a>
+        <a href="{% url 'car_viz_b_list' %}">
+          <img src="{% static 'app/images/car-icon.png' %}" alt="car">
+          <span class="image-text">Car</span>
+        </a>
+        <a href="{% url 'auto_viz_b_list' %}">
+          <img src="{% static 'app/images/auto-icon.png' %}" alt="auto">
+          <span class="image-text">Auto</span>
+        </a>
+        <a href="{% url 'traveller_viz_b_list' %}">
+          <img src="{% static 'app/images/traveller-icon.png' %}" alt="traveller">
+          <span class="image-text">Traveller</span>
+        </a>
+        <a href="{% url 'truck_viz_b_list' %}">
+          <img src="{% static 'app/images/truck-icon.png' %}" alt="truck">
+          <span class="image-text">Truck</span>
+        </a>
+        <!-- Add more image anchor elements here -->
+        <!-- Repeat the pattern for additional images -->
+      </div>
+      
+      
+      <div class="image-row">
+        <a href="{% url 'combineharvester_viz_b_list' %}">
+          <img src="{% static 'app/images/combine-harvester-icon.png' %}" alt="combine-harvester">
+          <span class="image-text">Combine Harvester</span>
+        </a>
+        <a href="{% url 'tractor_viz_b_list' %}">
+          <img src="{% static 'app/images/tractor-icon.png' %}" alt="tractor">
+          <span class="image-text">Tractor</span>
+        </a>
+        <a href="{% url 'jcb_viz_b_list' %}">
+          <img src="{% static 'app/images/jcb-icon.png' %}" alt="jcb">
+          <span class="image-text">JCB</span>
+        </a>
+        <a href="{% url 'borewelltruck_viz_b_list' %}">
+          <img src="{% static 'app/images/borewell-truck-icon.jpeg' %}" alt="borewell-truck">
+          <span class="image-text">Borewell Truck</span>
+        </a>
+        <a href="{% url 'other_viz_b_list' %}">
+          <img src="{% static 'app/images/other.jpg' %}" alt="borewell-truck">
+          <span class="image-text">Other Vehicles</span>
+        </a>
+        <!-- Add more image anchor elements here -->
+        <!-- Repeat the pattern for additional images -->
+      </div>
+    </div>
+  </div>
+</body>
+</html>

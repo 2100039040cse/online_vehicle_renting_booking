@@ -1,0 +1,220 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  <link rel="stylesheet" href="{% static 'app/index.css' %}">
+  <link rel="stylesheet" href="{% static 'app/mobile.css' %}">
+   
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Welcome!</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>{{ request.user.username }}</p>
+          <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+          <a href="{% url 'login' %}">Login</a>
+          <a href="{% url 'signup' %}">Signup</a>
+        {% endif %}
+        <a href="{% url 'become_partner' %}">Become Partner</a>
+      </div>
+    </div>
+  </nav>
+  <div class="content-wrapper">
+    <div class="content-left">
+      
+      <p class="blinking-text">Special Offer Alert! Rent any vehicle between [specific dates] and Save up to 50 on every booking over 200!</p><br><br><br><br><br><br>
+      <p style="font-size: 20px;">Welcome to [Your Website Name] - Your one-stop destination for convenient and affordable vehicle rentals with professional drivers. <br>
+        <!-- Explore a wide range of vehicles including bikes, cars, trucks, and more. <br>Enjoy secure online payments, flexible booking options, and exceptional customer service. -->
+      </p>
+      <pre>   
+
+
+
+      </pre>
+    </div>
+    <div class="content-right">
+      <video autoplay loop muted class="background-video">
+        <source src="{% static 'app/videos/one.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+ 
+<div class="services-section">
+  <h2>Our Services</h2>
+  <div class="service-container">
+    <!-- Service 1 -->
+    <div class="service">
+      <h3>Bike</h3>
+      <p>Rent our modern bikes for a smooth and adventurous ride. Perfect for city commuting or leisure trips.</p>
+    </div>
+    <!-- Repeat for Service 2, 3, and 4 -->
+    <div class="service">
+      <h3>Car</h3>
+      <p>Experience comfort and convenience with our fleet of cars. Ideal for family trips or business travels.</p>
+    </div>
+
+   
+
+    <div class="service">
+      <h3>Traveller</h3>
+      <p>Spacious and comfortable tempo traveler rentals for group outings or tours. Enjoy a convenient journey together.</p>
+    </div>
+
+    <div class="service">
+      <h3>Truck</h3>
+      <p>Heavy-duty trucks available for logistics and transport purposes. Efficient and reliable for cargo handling.</p>
+    </div>
+
+    <div class="service">
+      <h3>JCB</h3>
+      <p>Rent JCB machines for construction or excavation work. Powerful equipment for various projects.</p>
+    </div>
+
+    <div class="service">
+      <h3>Harvester</h3>
+      <p>Harvesting equipment rentals for agricultural needs. Boost productivity during harvest seasons.</p>
+    </div>
+
+    <div class="service">
+      <h3>Tractor</h3>
+      <p>Powerful tractors available for farming and landscaping tasks. Enhance efficiency in agricultural operations.</p>
+    </div>
+
+    <div class="service">
+      <h3>Borewell Truck</h3>
+      <p>Rent specialized borewell trucks for water drilling and exploration. Essential for borewell-related projects.</p>
+    </div>
+
+  </div>
+  <!-- Create more service-container divs if needed -->
+</div>
+
+
+<!-- Partners Section -->
+<div class="partners-section">
+  <h2>Our Partners</h2>
+  <div class="partner-container">
+    <!-- Partner 1 -->
+    <div class="partner">
+      <h3>Transport Service</h3>
+      <img class="round-logo" src="{% static 'app/images/likith1.jpeg' %}" alt="ABC Transport Logo">
+      <p><strong>Name:</strong> ABC Transport Rentals</p>
+      <p><strong>Contact:</strong> Phone: 123-456-7890, Email: info@abctransport.com</p>
+      <p><strong>Address:</strong> 123 Main Street, Cityville, State, Country</p>
+      <p>Collaborating with local transport services to provide a wide range of vehicle options for rental needs.</p>
+    </div>
+    
+    <div class="partner">
+      <h3>Construction Firms</h3>
+      <img class="round-logo" src="{% static 'app/images/bharath.jpeg' %}" alt="Builders R Us Logo">
+      <p><strong>Name:</strong> Builders R Us</p>
+      <p><strong>Contact:</strong> Phone: 555-123-4567, Email: info@buildersrus.com</p>
+      <p><strong>Address:</strong> 789 Cedar Street, Villageland, State, Country</p>
+      <p>Working closely with construction companies to cater to their heavy machinery rental requirements.</p>
+    </div>
+    
+    <div class="partner">
+      <h3>Agricultural Suppliers</h3>
+      <img class="round-logo" src="{% static 'app/images/baba.jpeg' %}" alt="Farm Equipment Plus Logo">
+      <p><strong>Name:</strong> Farm Equipment Plus</p>
+      <p><strong>Contact:</strong> Phone: 111-222-3333, Email: info@farmequipmentplus.com</p>
+      <p><strong>Address:</strong> 101 Farm Road, Ruralville, State, Country</p>
+      <p>Collaborating with agricultural suppliers to provide farm-related equipment for rent to farmers.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Footer Section -->
+<footer class="footer-section">
+  <div class="footer-content">
+    <p>Contact Us:</p>
+    <p>Phone: 123-456-7890</p>
+    <p>Email: info@yourcompany.com</p>
+    <p>Address: 789 Street Name, City, State, Zip</p>
+  </div>
+  <div class="social-media">
+    <p>Follow Us:</p>
+    <a href="#" target="_blank" rel="noopener noreferrer">Facebook</a>
+    <a href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
+    <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+  </div>
+</footer>
+  
+   
+</body>
+</html>
+
+<!-- <video autoplay loop muted class="background-video">
+    <source src="{% static 'app/videos/one.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video> -->
+  
+  
+ 
+<!-- source venv/Scripts/activate , 
+  cd project , 
+  python manage.py runserver 10.124.7.180:8000,10.102.7.13:8000 ,10.46.253.19:8000
+  python manage.py makemigrations , 
+  python manage.py migrate -->
+
+    <!-- <div class="background-image"></div> -->
+
+
+ 
+
+
+
+
+<!-- <div class="vehicles-section">
+  <h2>Our Vehicles</h2>
+  <div class="vehicle-container">
+    <div class="vehicle">
+      <h3>Bike</h3>
+      <p>Description about Bike here...</p>
+    </div>
+    <div class="vehicle">
+      <h3>Bike</h3>
+      <p>Description about Bike here...</p>
+    </div>
+
+    <div class="vehicle">
+      <h3>Bike</h3>
+      <p>Description about Bike here...</p>
+    </div>
+
+    <div class="vehicle">
+      <h3>Bike</h3>
+      <p>Description about Bike here...</p>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+
+
+ <!-- <div class="service">
+      <h3>Auto</h3>
+      <p>Hassle-free auto-rickshaw rentals for short commutes. An affordable and efficient mode of transportation.</p>
+    </div> -->
+
+
+
+    <!-- Partner 2 -->
+    <!-- <div class="partner">
+      <h3>Travel Agencies</h3>
+      <p><strong>Name:</strong> XYZ Travel Solutions</p>
+      <p><strong>Contact:</strong> Phone: 987-654-3210, Email: info@xyztravelsolutions.com</p>
+      <p><strong>Address:</strong> 456 Oak Avenue, Townsville, State, Country</p>
+      <p>Partnering with travel agencies to offer seamless travel experiences and packaged deals to our customers.</p>
+    </div> -->
+    <!-- Partner 3 -->

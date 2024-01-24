@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Delete Account</title>
+  <link rel="stylesheet" href="{% static 'app/admin_delete_account.css' %}">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-left">
+      <h1></h1>
+    </div>
+    <div class="navbar-right">
+      {% if request.user.is_authenticated %}
+        <p>User: {{ request.user.username }}</p>
+        <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+      {% endif %}
+      <div>
+        <a href="{% url 'admin_change_password' %}">Change Password</a>
+        <!-- <a href="{% url 'admin_delete_account' %}">Delete Account</a> -->
+      </div>
+      <a href="{% url 'logout' %}">Logout</a>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <div class="container">
+    <div class="form-container">
+      <h1 class="form-heading">Delete Account</h1>
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <form method="post">
+        {% csrf_token %}
+        <label for="password">Enter Your Password to Confirm Deletion:</label>
+        <input type="password" id="password" name="password">
+        <button type="submit">Delete Account</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

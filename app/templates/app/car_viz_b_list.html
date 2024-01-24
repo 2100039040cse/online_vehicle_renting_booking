@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  
+  <link rel="stylesheet" href="{% static 'app/auto_viz_a_list.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'app/auto_viz_a_list_mobile.css' %}"> -->
+  <style>
+    .navbar-right a[href*="viz_b_vehicle_list"] {
+      padding: 8px 15px; /* Adjust padding for button size */
+      background-color: #990011; /* Apply orange box color */
+      color: #FCF6F5; /* Set text color to black */
+      font-size: 18px; /* Increase font size for the button */
+      border-radius: 4px;
+    }</style>
+<body> 
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Car</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <a href="{% url 'dashboard' %}">Dashboard</a>
+          <a href="{% url 'viz_b_vehicle_list' %}">Change Vehilcle</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <div class="vehicle-list">
+    <h2>Vehicle List</h2>
+    {% for car in cars_viz_b %}
+      <div class="vehicle-container"> 
+      <div class="vehicle-record">
+        <div class="vehicle-details">
+          <!-- <strong>Added By:</strong> {{ car.added_by.username }}<br>
+          <strong>Date Added:</strong> {{ car.date_added|date:"F j, Y, g:i a" }}<br> -->
+          <!-- <strong>Vehicle ID:</strong> {{ car.vehicle_id }}<br> -->
+          <strong>Vehicle Number:</strong> {{ car.vehicle_number }}<br>
+          <strong>Vehicle Name:</strong> {{ car.vehicle_name }}<br>
+          <strong>Rent Cost:</strong> {{ car.rent_cost }}<br>
+          <!-- <strong>Driver Name:</strong> {{ car.driver_name }}<br>  -->
+          <!-- <strong>Driver Contact:</strong> {{ car.driver_contact }}<br> -->
+          <strong>Driver Cost:</strong> {{ car.driver_cost }}<br>
+          <!-- <strong>Location:</strong> {{ car.location }}<br>
+          <strong>Station:</strong> {{ car.station }}<br> -->
+          <strong>Status:</strong> {{ car.status }}<br>
+          <!-- <strong>Terms & Conditions:</strong> {{ car.terms_conditions }}<br> -->
+          <div class="btn-group">
+            <button class="btn-book-now" onclick="redirectToPayment('{{ car.id }}')">Book Now</button>
+          </div>
+        </div>
+        <div class="vehicle-image">
+          <img src="{{ car.image.url }}" alt="Vehicle Image">
+        </div>
+        <div style="clear:both;"></div> 
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+      <div style="clear:both;"></div> 
+    {% endif %}
+  {% endfor %}
+  <div style="clear:both;"></div> 
+</div>
+<script>
+  function redirectToPayment(carId) {
+    var redirectUrl = "{% url 'car_viz_b_payment' car_id='0' %}".replace('0', carId);
+    location.href = redirectUrl;
+  }
+
+</script>
+</body>
+</html>

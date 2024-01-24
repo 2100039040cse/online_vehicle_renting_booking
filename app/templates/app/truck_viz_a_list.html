@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  
+  <link rel="stylesheet" href="{% static 'app/auto_viz_a_list.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'app/auto_viz_a_list_mobile.css' %}"> -->
+<body> 
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Truck</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <a href="{% url 'dashboard' %}">Dashboard</a>
+          <a href="{% url 'viz_a_vehicle_list' %}">Change Vehilcle</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <div class="vehicle-list">
+    <h2>Vehicle List</h2>
+    {% for truck in trucks_viz_a %}
+      <div class="vehicle-container"> 
+      <div class="vehicle-record">
+        <div class="vehicle-details">
+          <!-- <strong>Added By:</strong> {{ truck.added_by.username }}<br>
+          <strong>Date Added:</strong> {{ truck.date_added|date:"F j, Y, g:i a" }}<br> -->
+          <!-- <strong>Vehicle ID:</strong> {{ truck.vehicle_id }}<br> -->
+          <strong>Vehicle Number:</strong> {{ truck.vehicle_number }}<br>
+          <strong>Vehicle Name:</strong> {{ truck.vehicle_name }}<br>
+          <strong>Rent Cost:</strong> {{ truck.rent_cost }}<br>
+          <!-- <strong>Driver Name:</strong> {{ truck.driver_name }}<br>  -->
+          <!-- <strong>Driver Contact:</strong> {{ truck.driver_contact }}<br> -->
+          <strong>Driver Cost:</strong> {{ truck.driver_cost }}<br>
+          <!-- <strong>Location:</strong> {{ truck.location }}<br>
+          <strong>Station:</strong> {{ truck.station }}<br> -->
+          <strong>Status:</strong> {{ truck.status }}<br>
+          <!-- <strong>Terms & Conditions:</strong> {{ truck.terms_conditions }}<br> -->
+          <div class="btn-group">
+            <button class="btn-book-now" onclick="redirectToPayment('{{ truck.id }}')">Book Now</button>
+          </div>
+        </div>
+        <div class="vehicle-image">
+          <img src="{{ truck.image.url }}" alt="Vehicle Image">
+        </div>
+        <div style="clear:both;"></div> 
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+      <div style="clear:both;"></div> 
+    {% endif %}
+  {% endfor %}
+  <div style="clear:both;"></div> 
+</div>
+<script>
+  function redirectToPayment(truckId) {
+    var redirectUrl = "{% url 'truck_viz_a_payment' truck_id='0' %}".replace('0', truckId);
+    location.href = redirectUrl;
+  }
+
+</script>
+</body>
+</html>
