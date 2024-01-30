@@ -29,9 +29,9 @@ DEBUG = True
 # DEBUG = os.environ.get("DEBUG")
 
 
-ALLOWED_HOSTS=["127.0.0.1", "localhost", "2100039040.pythonanywhere.com"]
-# ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
-
+# ALLOWED_HOSTS=["127.0.0.1", "localhost", "2100039040.pythonanywhere.com"]
+# ALLOWED_HOSTS = ["10.46.81.246"]
+ALLOWED_HOSTS = []
 
 # ALLOWED_HOSTS += os.environ.get("ALLOWED_HOSTS").split()
 # allowed_hosts_env = os.environ.get("ALLOWED_HOSTS")
@@ -91,21 +91,21 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django',
-        'USER': 'root',
-        'PASSWORD': 'Ccna1234.', 
-        'HOST': 'localhost',  
-        'PORT': '3306',  
-    }
-  }
-# DATABASES={
-#     'default':dj_database_url.config(
-#         default="sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3")
-#     )
-# }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'django',
+#         'USER': 'root',
+#         'PASSWORD': 'Ccna1234.', 
+#         'HOST': 'localhost',  
+#         'PORT': '3306',  
+#     }
+#   }
+DATABASES={
+    'default':dj_database_url.config(
+        default="sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3")
+    )
+}
 
 
 # Password validation
@@ -140,14 +140,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# STATIC_URL = '/static/'
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'app/static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'app/static'),
     
-# ]
+]
 DATABASES = {
     'default': dj_database_url.config(
         default="sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3")
