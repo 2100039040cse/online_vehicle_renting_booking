@@ -2,16 +2,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Your Page Title</title>
+  <title>My Dashboard</title>
   <link rel="stylesheet" href="{% static 'app/dashboard.css' %}">
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+  <style>
+    .navbar-right a[href*="account"] {
+  padding: 8px 15px; /* Adjust padding for button size */
+  background-color: #990011; /* Apply orange box color */
+  color: #FCF6F5; /* Set text color to black */
+  font-size: 18px; /* Increase font size for the button */
+  border-radius: 4px;
+}
+  </style>
 </head>
 <body>
   <nav>
     <div class="navbar"> 
       <div class="navbar-left">
         <h1>Welcome!</h1>
-      </div>
+      </div> 
       <div class="navbar-right">
         {% if request.user.is_authenticated %}
           <p>User:{{ request.user.username }}</p>

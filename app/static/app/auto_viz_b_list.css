@@ -18,7 +18,7 @@
     align-items: center;
     padding: 10px 20px;
     /* background-color: #f0f0f0; */
-    background-color: #FCF6F5;
+    background-color: #FCF6F5; 
     color: #990011;
     border-top-left-radius: 15px; 
   border-top-right-radius: 15px; 
@@ -48,7 +48,7 @@
 }
 
 /* Style specifically the "Become Partner" button */
-.navbar-right a[href*="viz_b_vehicle_list"] {
+.navbar-right a[href*="viz_a_vehicle_list"] {
   padding: 8px 15px; /* Adjust padding for button size */
   background-color: #990011; /* Apply orange box color */
   color: #FCF6F5; /* Set text color to black */
@@ -60,7 +60,8 @@
  /* Style for the vehicle list container */
 .vehicle-list {
   margin: 20px;
-  
+  /* display: flex;
+  flex-wrap: wrap; */
   
   }
   
@@ -79,24 +80,33 @@ border-bottom-left-radius: 15px;
   }
   
   .vehicle-details {
-  float: right;
-  width: calc(100% - 220px); /* Adjust width to accommodate the image */
+  /* float: right;
+  width: calc(100% - 220px); */
+  padding: 10px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background-color: #f9f9f9;
   }
   
   .vehicle-image {
-  float: left;
-  margin-right: 20px;
+  /* float: left;
+  margin-right: 20px; */
+  height: 200px;
+  overflow: hidden;
   }
   
   .vehicle-image img {
-  max-width: 200px; /* Adjust the maximum width of the image */
-  height: auto; /* Maintain aspect ratio */
+  /* max-width: 200px;  */
+  width: 100%;
+  height: 100%; 
   display: block;
-  margin-bottom: 10px;
+  object-fit: contain;
+  /* margin-bottom: 10px; */
   border-top-left-radius: 15px; 
   border-top-right-radius: 15px; 
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
+  /* border: 2px solid #ccc; */
   }
   
   /* Style for the update and delete buttons */
@@ -121,29 +131,22 @@ border-bottom-left-radius: 15px;
   }
   
   
+ 
   .vehicle-container {
-  width: calc(33.33% - 20px);
-  float: left;
-  margin-right: 20px;
-  margin-bottom: 20px;
-  box-sizing: border-box;
-  background-color: white;
-  border-top-left-radius: 15px; 
-border-top-right-radius: 15px; 
-border-bottom-right-radius: 15px;
-border-bottom-left-radius: 15px;
-  }
-  
-  /* @media (max-width: 768px) {
-  .vehicle-container {
-    width: 100%;
-    margin-right: 0;
+    width: calc(33.33% - 20px);
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    background-color: white;
     border-top-left-radius: 15px; 
-border-top-right-radius: 15px; 
-border-bottom-right-radius: 15px;
-border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px; 
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    overflow: hidden; /* Add overflow to contain floated elements */
+    /* border: 2px solid #ccc; */
   }
   
-  } */
+
   
   

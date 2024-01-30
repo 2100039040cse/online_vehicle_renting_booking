@@ -4,9 +4,16 @@
 <head>
   <title>Your Page Title</title>
   <link rel="stylesheet" href="{% static 'app/auto_viz_a_payment.css' %}">
-  <!-- <link rel="stylesheet" href="{% static 'app/auto_viz_a_payment_mobile.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'app/auto_viz_a_payment_mobile.css' %}">
   <style>
     .navbar-right a[href*="traveller_viz_a_list"] {
+      padding: 8px 15px; /* Adjust padding for button size */
+      background-color: #990011; /* Apply orange box color */
+      color: #FCF6F5; /* Set text color to black */
+      font-size: 18px; /* Increase font size for the button */
+      border-radius: 4px;
+    }
+    .navbar-right a[href*="user_bookings"] {
       padding: 8px 15px; /* Adjust padding for button size */
       background-color: #990011; /* Apply orange box color */
       color: #FCF6F5; /* Set text color to black */
@@ -23,7 +30,7 @@
       <div class="navbar-right">
         {% if request.user.is_authenticated %}
           <p>User:{{ request.user.username }}</p>
-          <a href="{% url 'dashboard' %}">Dashboard</a>
+          <a href="{% url 'user_bookings' %}">My Bookings</a>
           <a href="{% url 'traveller_viz_a_list' %}">Change Traveller</a>
         {% endif %}
       </div>
@@ -99,60 +106,53 @@
 </div>
 </div>
 <script>
-    function validateDateTimeSelection() {
-       var currentDateTime = new Date();
-       var startDateTime = new Date(document.getElementById('start_datetime').value);
-       var endDateTime = new Date(document.getElementById('end_datetime').value);
-       
-       if (startDateTime < currentDateTime) {
-           alert("Please select a start time in the future.");
-           return false;
-       }
+        function validateDateTimeSelection() {
+      var currentDateTime = new Date();
+        var startDateTime = new Date(document.getElementById('start_datetime').value);
+        var endDateTime = new Date(document.getElementById('end_datetime').value);
 
-       // Ensure end time is not earlier than start time
-       if (endDateTime <= startDateTime) {
-           alert("Please select an end time later than the start time.");
-           return false;
-       }
-       // Define the minimum booking time (2 hours)
-       var minimumBookingTime = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+        // Check if start time is in the future
+        if (startDateTime < currentDateTime) {
+            alert("Please select a start time in the future.");
+            return false;
+        }
 
-       // Ensure the booking duration is at least the minimum
-       if (endDateTime - startDateTime < minimumBookingTime) {
-           alert("Minimum booking time is 2 hours. Please select a longer duration.");
-           return false;
-       }
-       
+        // Ensure end time is not earlier than start time
+        if (endDateTime <= startDateTime) {
+            alert("Please select an end time later than the start time.");
+            return false;
+        }
 
-       // Define the allowed time range
-       var allowedStartTime = new Date();
-       allowedStartTime.setHours(7, 30, 0, 0);
-       
-       var allowedEndTime = new Date();
-       allowedEndTime.setHours(18, 0, 0, 0);
-       
-       // if (startDateTime < allowedStartTime || endDateTime > allowedEndTime) {
-       //     alert("Please select the time between 7:30 am and 6:00 pm.");
-       //     return false;
-       // }
-       if (startDateTime < allowedStartTime) {
-           alert("Please select a start time after 7:30 am.");
-           return false;
-       }
-       
-       // Check if the selected end time is after the allowed end time
-       if (endDateTime < allowedEndTime) {
-           alert("Please select an end time before 6:00 pm.");
-           return false;
-       }
-       
-       // Check if the selected end time is later than the start time
-       if (endDateTime <= startDateTime) {
-           alert("End time must be later than the start time.");
-           return false;
-       }
-       
-       return true;
+        // Define the minimum booking time (2 hours)
+        var minimumBookingTime = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+
+        // Ensure the booking duration is at least the minimum
+        if (endDateTime - startDateTime < minimumBookingTime) {
+            alert("Minimum booking time is 2 hours. Please select a longer duration.");
+            return false;
+        }
+
+        // Define the allowed time range
+        var allowedStartTime = new Date();
+        allowedStartTime.setHours(7, 30, 0, 0);
+
+        var allowedEndTime = new Date();
+        allowedEndTime.setHours(18, 0, 0, 0);
+
+        // Check if the selected time range is within allowed hours
+        if (
+    startDateTime.getHours() < allowedStartTime.getHours() ||
+    (startDateTime.getHours() === allowedStartTime.getHours() && startDateTime.getMinutes() < allowedStartTime.getMinutes()) ||
+    endDateTime.getHours() > allowedEndTime.getHours() ||
+    (endDateTime.getHours() === allowedEndTime.getHours() && endDateTime.getMinutes() > allowedEndTime.getMinutes())
+) {
+    var formattedStartTime = allowedStartTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    var formattedEndTime = allowedEndTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    alert("Please select the time between " + formattedStartTime + " and " + formattedEndTime + ".");
+    return false;
+}
+
+        return true;
    }
    function calculateTotalCost() {
      var startDateTime = new Date(document.getElementById('start_datetime').value);

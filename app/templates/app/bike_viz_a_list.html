@@ -2,10 +2,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Your Page Title</title>
+  <title>A-Bikes List</title>
   
   <link rel="stylesheet" href="{% static 'app/auto_viz_a_list.css' %}">
   <!-- <link rel="stylesheet" href="{% static 'app/auto_viz_a_list_mobile.css' %}"> -->
+  <style>
+    .navbar-right a[href*="dashboard"] {
+  padding: 8px 15px; /* Adjust padding for button size */
+  background-color: #990011; /* Apply orange box color */
+  color: #FCF6F5; /* Set text color to black */
+  font-size: 18px; /* Increase font size for the button */
+  border-radius: 4px;
+}
+  </style>
 <body> 
   <nav>
     <div class="navbar">

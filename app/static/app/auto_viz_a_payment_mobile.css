@@ -22,11 +22,11 @@
   
   
   /* Navbar Styles */
-  .navbar {
+  /* .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 10px; /* Adjust padding for smaller screens */
+    padding: 10px 10px; 
     background-color: #FCF6F5;
     color: #990011;
     border-top-left-radius: 15px;
@@ -46,25 +46,25 @@
   }
   
   .navbar-right a {
-    margin-left: 5px; /* Adjust margin for smaller screens */
+    margin-left: 5px; 
     color: #990011;
     text-decoration: none;
-    font-size: 14px; /* Adjust font size for smaller screens */
+    font-size: 14px; 
   }
   
   /* Style the anchor elements when hovered */
-  .navbar-right a:hover {
-    color: gray; /* Change color on hover if desired */
-  }
+  /* .navbar-right a:hover {
+    color: gray; 
+  } 
   
-  /* Style specifically the "Change Auto" button */
+  
   .navbar-right a[href*="auto_viz_a_list"] {
-    padding: 5px 10px; /* Adjust padding for smaller screens */
+    padding: 5px 10px; 
     background-color: #990011;
     color: #FCF6F5;
-    font-size: 14px; /* Adjust font size for smaller screens */
+    font-size: 14px; 
     border-radius: 4px;
-  }
+  } */
   
   /* Main Content Container */
   .main-content {

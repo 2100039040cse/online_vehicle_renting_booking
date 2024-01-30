@@ -40,7 +40,7 @@
   border-radius: 15px;
   border: 3px solid #990011;
 }
-
+ 
 .content-wrapper {
   display: flex;
   height: 50vh; 
@@ -59,7 +59,7 @@ border-radius: 15px;
   margin-right: 10px; 
 }
 @keyframes blink {
-  0% {
+  /* 0% {
     opacity: 1;
   }
   50% {
@@ -67,15 +67,35 @@ border-radius: 15px;
   }
   100% {
     opacity: 1;
+  } */
+  0%, 100% {
+    opacity: 1;
+    color: #fff; /* Text color */
+  }
+  50% {
+    opacity: 0;
+    color: transparent; /* Make text transparent during the blink */
   }
 }
 .blinking-text {
-  animation: blink 3s infinite;
+  /* animation: blink 3s infinite; */
   position: absolute; 
   top: 20px; 
   left: 20px;
   font-size: 24px;
-  color: #990011;
+  /* color: #990011; */
+  margin-top: 130px;
+  font-size: 24px;
+   /* color: #fff;  */
+  background-color: #990011; 
+  padding: 5px 5px;  
+  border-radius: 15px;
+  /* width: 415px; */
+
+}
+.blinking-text span {
+  animation: blink 5s infinite;
+  color: #fff; 
 }
 .content-right {
   width: 50%; 
@@ -134,7 +154,7 @@ body {
 .services-section,
 .partners-section {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 30px;
   color: black;
 }
 
@@ -304,3 +324,14 @@ body {
   font-size: 18px;
   margin-bottom: 8px;
 } */
+
+.service a {
+  margin-bottom: 0;
+  display: block; /* Ensures the entire service area is clickable */
+  text-decoration: none; /* Remove underline on anchor */
+  color: inherit; /* Use the parent's color */
+}
+
+.service:hover {
+  background-color: #af7171; /* Add a background color on hover to indicate interactivity */
+}

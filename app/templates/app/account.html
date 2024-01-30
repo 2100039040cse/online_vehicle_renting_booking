@@ -2,8 +2,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Your Page Title</title>
+  <title>Account</title>
   <link rel="stylesheet" href="{% static 'app/account.css' %}">
+  <style>
+     .navbar-right a[href*="dashboard"] {
+      padding: 8px 15px; /* Adjust padding for button size */
+      background-color: #990011; /* Apply orange box color */
+      color: #FCF6F5; /* Set text color to black */
+      font-size: 18px; /* Increase font size for the button */
+      border-radius: 4px;
+    }
+    .navbar-right a[href*="change-password"] {
+      padding: 8px 15px; /* Adjust padding for button size */
+      background-color: #990011; /* Apply orange box color */
+      color: #FCF6F5; /* Set text color to black */
+      font-size: 18px; /* Increase font size for the button */
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body>
   <nav>
@@ -18,7 +34,7 @@
         {% endif %}
         <div>
           <a href="{% url 'change_password' %}">Change Password</a>
-          <a href="{% url 'delete_account' %}">Delete Account</a>
+          <!-- <a href="{% url 'delete_account' %}">Delete Account</a> -->
       </div>
         
         <a href="{% url 'logout' %}">Logout</a>

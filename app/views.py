@@ -13,6 +13,8 @@ from django.db.models import Q
 from decimal import Decimal
 from datetime import timedelta
 
+
+
 def index(request):
     return render(request, 'index.html')
 
@@ -65,7 +67,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('login')
+    return redirect('index')
 
 @login_required
 def change_password(request):
@@ -164,6 +166,88 @@ def admin_redirect(request):
 
 def admin_rides(request):
      return render(request, 'admin_rides.html')
+
+# def admin_users_list(request):
+#      return render(request, 'admin_users_list.html')
+def admin_users_list(request):
+    users = User.objects.all()
+    return render(request, 'admin_users_list.html', {'users': users})
+
+
+
+# @login_required
+# def enable_user(request, user_id):
+#     user_to_enable = User.objects.get(id=user_id)
+#     if request.user.is_superuser and not request.user.id == user_id and not user_to_enable.is_superuser:
+#         user_to_enable.is_active = True
+#         user_to_enable.save()
+#         messages.success(request, f"{user_to_enable.username} has been enabled.", extra_tags='success')
+#     else:
+#         messages.error(request, "You don't have permission to enable this user.", extra_tags='error')
+#     return redirect('admin_users_list')
+
+
+# @login_required
+# def disable_user(request, user_id):
+#     if request.user.is_superuser and not request.user.id == user_id:
+#         user_to_disable = User.objects.get(id=user_id)
+#         user_to_disable.is_active = False
+#         user_to_disable.save()
+#         messages.success(request, f"{user_to_disable.username} has been disabled.", extra_tags='success')
+#     else:
+#         messages.error(request, "You don't have permission to disable this user.", extra_tags='error')
+#     return redirect('admin_users_list')
+
+# @login_required
+# def delete_user(request, user_id):
+#     if request.user.is_superuser and not request.user.id == user_id:
+#         user_to_delete = User.objects.get(id=user_id)
+#         user_to_delete.delete()
+#         messages.success(request, f"{user_to_delete.username} has been deleted.", extra_tags='success')
+#     else:
+#         messages.error(request, "You don't have permission to delete this user.", extra_tags='error')
+#     return redirect('admin_users_list')
+
+
+
+@login_required
+def disable_user(request, user_id):
+    user_to_disable = User.objects.get(id=user_id)
+    if request.user.is_superuser and request.user.is_staff and not request.user.id == user_id and not user_to_disable.is_superuser:
+        user_to_disable.is_active = False
+        user_to_disable.save()
+        messages.success(request, f"{user_to_disable.username} has been disabled.", extra_tags='success')
+    else:
+        messages.error(request, "You don't have permission to disable this user.", extra_tags='error')
+    return redirect('admin_users_list')
+
+@login_required
+def enable_user(request, user_id):
+    user_to_enable = User.objects.get(id=user_id)
+    if request.user.is_superuser and request.user.is_staff and not request.user.id == user_id and not user_to_enable.is_superuser:
+        user_to_enable.is_active = True
+        user_to_enable.save()
+        messages.success(request, f"{user_to_enable.username} has been enabled.", extra_tags='success')
+    else:
+        messages.error(request, "You don't have permission to enable this user.", extra_tags='error')
+    return redirect('admin_users_list')
+
+@login_required
+def delete_user(request, user_id):
+    user_to_delete = User.objects.get(id=user_id)
+    if request.user.is_superuser and request.user.is_staff and not request.user.id == user_id and not user_to_delete.is_superuser:
+        user_to_delete.delete()
+        messages.success(request, f"{user_to_delete.username} has been deleted.", extra_tags='success')
+    else:
+        messages.error(request, "You don't have permission to delete this user.", extra_tags='error')
+    return redirect('admin_users_list')
+
+
+def admin_viz_a_rides_graph (request):
+     return render(request, 'admin_viz_a_rides_graph .html')
+
+
+
 
 
 

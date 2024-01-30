@@ -52,13 +52,13 @@ body {
 }
 
 .vehicle-image {
-  float: none; /* Remove float on smaller screens */
-  margin-right: 0; /* Remove margin on smaller screens */
+  float: none; 
+  margin-right: 0; 
 }
 
 .vehicle-details {
-  width: 100%; /* Take up full width on smaller screens */
-  float: none; /* Remove float on smaller screens */
+  width: 100%; 
+  float: none; 
 }
 
 .vehicle-image img {
@@ -96,7 +96,7 @@ body {
 @media (min-width: 576px) {
   .vehicle-container {
     width: calc(33.33% - 20px); /* Display three containers per row */
-    float: left;
+    /* float: left; */
     margin-right: 10px; /* Add some space between containers */
     margin-bottom: 20px; 
   }

@@ -22,6 +22,13 @@ urlpatterns = [
     path('admin_change_password/', views.admin_change_password, name='admin_change_password'),
     path('admin_feed_back/<int:payment_id>/', views.admin_feed_back, name='admin_feed_back'),
     path('admin_cancel/<int:payment_id>/', views.admin_cancel, name='admin_cancel'),
+    path('admin_users_list/', views.admin_users_list, name='admin_users_list'),
+    path('enable_user/<int:user_id>/', views.enable_user, name='enable_user'),
+    path('disable_user/<int:user_id>/', views.disable_user, name='disable_user'),
+    path('delete_user/<int:user_id>/', views.delete_user, name='delete_user'),
+    path('admin_viz_a_rides_graph /', views.admin_viz_a_rides_graph , name='admin_viz_a_rides_graph '),
+
+    
 
     path('admin_add_vehicle/', views.admin_add_vehicle, name='admin_add_vehicle'),
     path('admin_bike_viz_a_list/', views.admin_bike_viz_a_list, name='admin_bike_viz_a_list'),

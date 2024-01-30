@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  <link rel="stylesheet" href="{% static 'app/admin_users_list.css' %}">
+  <style>
+    .navbar-right a[href*="logout"] {
+      padding: 8px 15px; /* Adjust padding for button size */
+      background-color: #990011; /* Apply orange box color */
+      color: #FCF6F5; /* Set text color to black */
+      font-size: 18px; /* Increase font size for the button */
+      border-radius: 4px;
+    }</style>
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="navbar-left">
+        <h1>Users</h1>
+      </div>
+      <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+          <p>User:{{ request.user.username }}</p>
+          <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+        {% endif %}
+        <div>
+          <!-- <a href="{% url 'admin_change_password' %}">Change Password</a>
+          <a href="{% url 'admin_delete_account' %}">Delete Account</a> -->
+      </div>
+        
+        <a href="{% url 'logout' %}">Logout</a>
+      </div>
+    </div>
+  </nav>
+  <div class="background-image"></div>
+  <div class="messages">
+    {% if messages %}
+      <ul class="messages-list">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+  <div class="user-list">
+    <h2>User List</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Enable Action</th>
+          <th>Disable Action</th>
+          <th>Delete Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                {% if not user.is_active and not user.is_superuser %}
+                  <form action="{% url 'enable_user' user.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Enable</button>
+                  </form>
+                {% endif %}
+              </td>
+              <td>
+                {% if user.is_active and not user.is_superuser %}
+                  <form action="{% url 'disable_user' user.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Disable</button>
+                  </form>
+                {% endif %}
+              </td>
+              <td>
+                {% if not user.is_superuser %}
+                  <form action="{% url 'delete_user' user.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                  </form>
+                {% endif %}
+              </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  </div>
+</body>
+</html>
