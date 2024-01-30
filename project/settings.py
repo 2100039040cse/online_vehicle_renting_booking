@@ -31,7 +31,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS=["127.0.0.1", "localhost", "2100039040.pythonanywhere.com"]
 # ALLOWED_HOSTS = ["10.46.81.246"]
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://2100039040.pythonanywhere.com/']
 
 # ALLOWED_HOSTS += os.environ.get("ALLOWED_HOSTS").split()
 # allowed_hosts_env = os.environ.get("ALLOWED_HOSTS")
