@@ -21,7 +21,7 @@ business collaborations and expanding the user base.
   
 Project Setup  
 
-Djang setup in VS Code YOUTUBE LINK--->>> https://youtu.be/eOVLhM6_6t0
+Django setup in VS Code YOUTUBE LINK--->>> https://youtu.be/eOVLhM6_6t0
 
 (or)
 
