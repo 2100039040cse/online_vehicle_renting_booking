@@ -41,8 +41,11 @@ def user_signup(request):
     else:
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})
- 
 
+
+###########################
+###########################
+###########################if you want login view function contact me.
 
 
 def user_logout(request):
