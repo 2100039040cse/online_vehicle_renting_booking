@@ -42,27 +42,7 @@ def user_signup(request):
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})
  
-def user_login(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user:
-                login(request, user)
-                if user.is_superuser:
-                    return render(request, 'admin_dashboard.html')
-                elif user.is_staff:
-                    return render(request, 'staff_dashboard.html')  
-                else:
-                    return redirect('dashboard')
-            else:
-                messages.error(request, 'Incorrect username or password. Please try again.')
-    else:
-        form = LoginForm()
-        
-    return render(request, 'login.html', {'form': form})
+
 
 
 def user_logout(request):
